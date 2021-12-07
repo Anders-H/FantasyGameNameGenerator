@@ -2,6 +2,12 @@
 
 A simple function that generates unique names for, like, a science fiction game.
 
+# Install version 1.0.0 from NuGet:
+
+```
+Install-Package FantasyGameNameGenerator
+```
+
 Each call to `GenerateName` returns a unique name.
 
 Example:

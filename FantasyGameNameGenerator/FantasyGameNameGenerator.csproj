@@ -4,6 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Company>WinSoft.se</Company>
+    <Description>A simple function that generates unique names for, like, a science fiction game.</Description>
+    <PackageProjectUrl>https://github.com/Anders-H/FantasyGameNameGenerator/blob/main/readme.md</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Anders-H/FantasyGameNameGenerator</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
