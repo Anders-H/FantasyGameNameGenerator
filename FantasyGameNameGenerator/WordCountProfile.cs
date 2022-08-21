@@ -4,5 +4,6 @@ public enum WordCountProfile
 {
     LikelyOneWordFiveAtMost,
     LikelyTwoWordsFiveAtMost,
-    TwoToFourWords
+    TwoToFourWords,
+    TwoOrThreeWords
 }

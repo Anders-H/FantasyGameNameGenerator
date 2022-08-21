@@ -9,6 +9,7 @@ namespace FantasyGameNameGenerator
         private readonly List<string> _startConsonants;
         private readonly Random _rnd;
         public WordCountProfile WordCountProfile { get; set; }
+        public HyphenProbability HyphenProbability { get; set; }
         public static List<string> UsedNames { get; }
 
         static NameGenerator()
@@ -16,13 +17,14 @@ namespace FantasyGameNameGenerator
             UsedNames = new List<string>();
         }
 
-        public NameGenerator() : this(WordCountProfile.LikelyOneWordFiveAtMost)
+        public NameGenerator() : this(WordCountProfile.LikelyOneWordFiveAtMost, HyphenProbability.Medium)
         {
         }
 
-        public NameGenerator(WordCountProfile wordCountProfile)
+        public NameGenerator(WordCountProfile wordCountProfile, HyphenProbability hyphenPropability)
         {
             WordCountProfile = wordCountProfile;
+            HyphenProbability = hyphenPropability;
 
             _rnd = new Random();
 
@@ -140,9 +142,11 @@ namespace FantasyGameNameGenerator
 
         private string GetRandomName()
         {
+            var hyphenProbabilityTranslator = new HyphenProbabilityTranslator(HyphenProbability, _rnd);
+            var wordCountProfileTranslator = new WordCountProfileTranslator(WordCountProfile, _rnd);
+            
             var s = new StringBuilder();
-            var wordCounts = GetWordCountsFromProfile();
-            var wordCount = wordCounts[_rnd.Next(wordCounts.Length)];
+            var wordCount = wordCountProfileTranslator.GetWordCount();
             for (var i = 0; i < wordCount; i++)
             {
                 int syllables;
@@ -169,24 +173,9 @@ namespace FantasyGameNameGenerator
                     s.Append(_vowels[_rnd.Next(_vowels.Count)]);
 
                 if (i < wordCount - 1)
-                    s.Append(_rnd.Next(10) == 0 ? "-" : " ");
+                    s.Append(hyphenProbabilityTranslator.NextSeparatorIsHyphen() ? "-" : " ");
             }
             return FixCase(s.ToString());
-        }
-
-        private int[] GetWordCountsFromProfile()
-        {
-            switch (WordCountProfile)
-            {
-                case WordCountProfile.LikelyOneWordFiveAtMost:
-                    return new[] { 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 };
-                case WordCountProfile.LikelyTwoWordsFiveAtMost:
-                    return new[] { 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 };
-                case WordCountProfile.TwoToFourWords:
-                    return new[] { 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4 };
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         private string FixCase(string s)
