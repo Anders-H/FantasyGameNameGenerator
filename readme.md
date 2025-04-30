@@ -2,7 +2,7 @@
 
 A simple function that generates unique names for, like, a science fiction game.
 
-# Install version 1.0.0 from NuGet:
+# Install version 1.1.0 for .NET 8 from NuGet:
 
 ```
 Install-Package FantasyGameNameGenerator
