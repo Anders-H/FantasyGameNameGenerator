@@ -178,7 +178,7 @@ public class NameGenerator
         return FixCase(s.ToString());
     }
 
-    private string FixCase(string s)
+    private static string FixCase(string s)
     {
         var ret = new StringBuilder();
             

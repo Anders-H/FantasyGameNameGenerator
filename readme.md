@@ -2,7 +2,7 @@
 
 A simple function that generates unique names for, like, a science fiction game.
 
-# Install version 1.1.0 for .NET 8 from NuGet:
+# Install version 1.2 for .NET 8 from NuGet:
 
 ```
 Install-Package FantasyGameNameGenerator
@@ -55,3 +55,8 @@ Sample response:
 29. Yce Ehurrad Enojeklyg-Yrkytrosy Etjunyfrokr
 30. Uqini Ydu Tje Ojukvefr
 ```
+
+## What's new
+
+The most important new feature in version 1.2 is that the word elements are moved to an external file,
+so that it can be edited without changing the code.

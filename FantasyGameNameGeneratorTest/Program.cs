@@ -4,6 +4,17 @@ var n = new NameGenerator();
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
+Console.WriteLine("One, two or three words:");
+n.WordCountProfile = WordCountProfile.OneToThree;
+Console.WriteLine();
+
+for (var i = 0; i < 10; i++)
+    Console.WriteLine($"{i + 1}. {n.GenerateName()}");
+
+Console.WriteLine();
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
 Console.WriteLine("Likely one word, five words at most:");
 n.WordCountProfile = WordCountProfile.LikelyOneWordFiveAtMost;
 Console.WriteLine();
