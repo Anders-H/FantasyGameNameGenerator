@@ -14,19 +14,17 @@ internal class WordCountProfileTranslator
     public int GetWordCount()
     {
         var wordCounts = GetWordCountsFromProfile();
-        
-        var wordCount = wordCounts[_rnd.Next(wordCounts.Length)];
-
-        return wordCount;
+        return wordCounts[_rnd.Next(wordCounts.Length)];
     }
 
     private int[] GetWordCountsFromProfile() =>
         _wordCountProfile switch
         {
-            WordCountProfile.LikelyOneWordFiveAtMost => new[] { 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 },
-            WordCountProfile.LikelyTwoWordsFiveAtMost => new[] { 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5 },
-            WordCountProfile.TwoToFourWords => new[] { 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4 },
-            WordCountProfile.TwoOrThreeWords => new[] { 2, 3 },
+            WordCountProfile.LikelyOneWordFiveAtMost => [1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5],
+            WordCountProfile.LikelyTwoWordsFiveAtMost => [1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5],
+            WordCountProfile.TwoToFourWords => [2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4],
+            WordCountProfile.TwoOrThreeWords => [2, 3],
+            WordCountProfile.OneToThree => [1, 2, 3],
             _ => throw new ArgumentOutOfRangeException()
         };
 

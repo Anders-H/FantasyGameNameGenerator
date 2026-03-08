@@ -14,7 +14,7 @@ public class NameGenerator
 
     static NameGenerator()
     {
-        UsedNames = new List<string>();
+        UsedNames = [];
     }
 
     public NameGenerator() : this(WordCountProfile.LikelyOneWordFiveAtMost, HyphenProbability.Medium)
@@ -28,18 +28,18 @@ public class NameGenerator
 
         _rnd = new Random();
 
-        _vowels = new List<string>
-        {
+        _vowels =
+        [
             "A",
             "O",
             "U",
             "E",
             "I",
             "Y"
-        };
+        ];
 
-        _consonants = new List<string>
-        {
+        _consonants =
+        [
             "B",
             "BB",
             "C",
@@ -82,10 +82,10 @@ public class NameGenerator
             "X",
             "Z",
             "ZZ"
-        };
+        ];
 
-        _startConsonants = new List<string>
-        {
+        _startConsonants =
+        [
             "B",
             "C",
             "CR",
@@ -115,7 +115,7 @@ public class NameGenerator
             "W",
             "X",
             "Z"
-        };
+        ];
     }
 
     public string GenerateName()
@@ -144,21 +144,26 @@ public class NameGenerator
     {
         var hyphenProbabilityTranslator = new HyphenProbabilityTranslator(HyphenProbability, _rnd);
         var wordCountProfileTranslator = new WordCountProfileTranslator(WordCountProfile, _rnd);
-            
         var s = new StringBuilder();
         var wordCount = wordCountProfileTranslator.GetWordCount();
+
         for (var i = 0; i < wordCount; i++)
         {
             int syllables;
 
-            if (i == 0 && wordCount <= 1)
-                syllables = _rnd.Next(5) + 1;
-            else if (i == 1 && wordCount == 3)
-                syllables = _rnd.Next(2);
-            else if (i == 2 && wordCount == 4)
-                syllables = _rnd.Next(2);
-            else
-                syllables = _rnd.Next(4) + 1;
+            switch (i)
+            {
+                case 0 when wordCount <= 1:
+                    syllables = _rnd.Next(5) + 1;
+                    break;
+                case 1 when wordCount == 3:
+                case 2 when wordCount == 4:
+                    syllables = _rnd.Next(2);
+                    break;
+                default:
+                    syllables = _rnd.Next(4) + 1;
+                    break;
+            }
 
             if (_rnd.Next(4) == 0 || syllables <= 0)
                 s.Append(_startConsonants[_rnd.Next(_startConsonants.Count)]);
@@ -181,13 +186,15 @@ public class NameGenerator
     private static string FixCase(string s)
     {
         var ret = new StringBuilder();
-            
+
         for (var i = 0; i < s.Length; i++)
+        {
             if (i == 0 || s[i - 1] == ' ' || s[i - 1] == '-')
                 ret.Append(s[i].ToString().ToUpper());
             else
                 ret.Append(s[i].ToString().ToLower());
-            
+        }
+
         return ret.ToString();
     }
 }
